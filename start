@@ -53,29 +53,29 @@ setup_bot() {
         echo -e "${green}Node.js is already installed, skipping...${neutral}"
     fi
 
-   rm -rf /root/BotVPN
+   rm -rf /root/bot-gen
 
-    if [ ! -f /root/BotVPN/app.js ]; then
-        git clone https://github.com/akunkhususjualanssh-create/bot-gen.git /root/BotVPN
+    if [ ! -f /root/bot-gen/app.js ]; then
+        git clone https://github.com/akunkhususjualanssh-create/bot-gen.git /root/bot-gen
     fi
 apt install jq -y
 apt install npm -y
 npm install -g npm@latest
 npm install -g pm2
 
-    if ! npm list --prefix /root/BotVPN express telegraf axios moment sqlite3 >/dev/null 2>&1; then
-        npm install --prefix /root/BotVPN sqlite3 express crypto telegraf axios dotenv
+    if ! npm list --prefix /root/bot-gen express telegraf axios moment sqlite3 >/dev/null 2>&1; then
+        npm install --prefix /root/bot-gen sqlite3 express crypto telegraf axios dotenv
     fi
 
-    if [ -n "$(ls -A /root/BotVPN)" ]; then
-        chmod +x /root/BotVPN/*
+    if [ -n "$(ls -A /root/bot-gen)" ]; then
+        chmod +x /root/bot-gen/*
     fi
 }
 
 server_app() {
     clear
     echo -e "${orange}─────────────────────────────────────────${neutral}"
-    echo -e "   ${green}.:::. BOT SELLVPN TELEGRAM .:::.   ${neutral}"
+    echo -e "   ${green}.:::. BOT VPN GHANI STORE.:::.   ${neutral}"
     echo -e "${orange}─────────────────────────────────────────${neutral}"
     echo -e "       ${green}•${neutral} server create user"
     echo -e "       ${green}•${neutral} server renew user"
@@ -141,7 +141,7 @@ server_app() {
             echo -e "${red}DATA QRIS tidak boleh kosong. Silakan coba lagi.${neutral}"
         fi
     done
-    rm -f /root/BotVPN/.vars.json
+    rm -f /root/bot-gen/.vars.json
     echo "{
   \"BOT_TOKEN\": \"$token\",
   \"USER_ID\": \"$adminid\",
@@ -153,9 +153,9 @@ server_app() {
   \"auth_token_mutasi\": \"$auth_token_mutasi\",
   \"auth_paymet_getway\": \"$auth_paymet_getway\",
   \"web_mutasi\": \"$web_mutasi\"
-}" >/root/BotVPN/.vars.json
+}" >/root/bot-gen/.vars.json
 
-cd /root/BotVPN
+cd /root/bot-gen
 pm2 start ecosystem.config.js
 pm2 startup
 pm2 save
@@ -166,8 +166,8 @@ cat >/usr/bin/backup_sellvpn <<'EOF'
 # File: /usr/bin/backup_sellvpn
 # Pastikan chmod +x /usr/bin/backup_sellvpn
 
-VARS_FILE="/root/BotVPN/.vars.json"
-DB_FOLDER="/root/BotVPN"
+VARS_FILE="/root/bot-gen/.vars.json"
+DB_FOLDER="/root/bot-gen"
 
 # Cek file .vars.json
 if [ ! -f "$VARS_FILE" ]; then
